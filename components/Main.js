@@ -15,7 +15,7 @@ export class Main extends Component {
     console.log(currentUser);
     return (
       <View style={styles.container}>
-        <Text>, you are logged in</Text>
+        <Text>{currentUser.name}, you are logged in</Text>
       </View>
     );
   ;}
