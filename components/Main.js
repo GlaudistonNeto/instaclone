@@ -1,24 +1,76 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text } from 'react-native';
+import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from  'redux';
 import { fetchUser } from '../redux/actions/index';
+import firebase from 'firebase'
+
+import FeedScreen from './Main/Feed';
+import ProfileScreen from './Main/Profile';
+
+const Tab = createMaterialBottomTabNavigator();
+
+const EmptyScreen = () => {
+  return(null);
+};
 
 export class Main extends Component {
   componentDidMount() {
    this.props.fetchUser();
   }
   render() {
-    const { currentUser } = this.props;
-
-    console.log(currentUser);
     return (
-      <View style={styles.container}>
-        <Text>{currentUser.name}, you are logged in</Text>
-      </View>
+      <Tab.Navigator initialRouteName="Feed" labeled={false}>
+        <Tab.Screen
+        name="Feed"
+        component={FeedScreen}
+        options={{
+          tabBarIcon: ({ color, size }) => (
+            <MaterialCommunityIcons
+              name="home"
+              color={color}
+              size={26}
+            />
+          ),
+        }}
+        />
+        <Tab.Screen labeled={false}
+        name="AddContainer"
+        component={EmptyScreen}
+        listeners={({ navigation }) => ({
+          tabPress: event => {
+            event.preventDefault();
+            navigation.navigate("Add")
+          }
+        })}
+        options={{
+          tabBarIcon: ({ color, size }) => (
+            <MaterialCommunityIcons
+              name="plus-box"
+              color={color}
+              size={26}
+            />
+          ),
+        }}
+        />
+        <Tab.Screen labeled={false}
+        name="Profile"
+        component={ProfileScreen}
+        options={{
+          tabBarIcon: ({ color, size }) => (
+            <MaterialCommunityIcons
+              name="account-circle"
+              color={color}
+              size={26}
+            />
+          ),
+        }}
+        />
+      </Tab.Navigator>
     );
-  ;}
+  }
 };
 
 const mapStateToProps = (store) => ({
@@ -26,13 +78,5 @@ const mapStateToProps = (store) => ({
 });
 const mapDispatchProps = (dispatch) =>
   bindActionCreators({ fetchUser }, dispatch);
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  }
-});
 
 export default connect(mapStateToProps, mapDispatchProps)(Main);
