@@ -5,7 +5,6 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import { connect } from 'react-redux';
 import { bindActionCreators } from  'redux';
 import { fetchUser } from '../redux/actions/index';
-import firebase from 'firebase'
 
 import FeedScreen from './Main/Feed';
 import ProfileScreen from './Main/Profile';
