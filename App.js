@@ -1,30 +1,35 @@
-import React, { Component } from 'react'
-import { StyleSheet, View, Text } from 'react-native';
+import React, { Component } from 'react';
+import { StyleSheet, View, Text, LogBox } from 'react-native'
 
 import * as firebase from 'firebase';
-import firebaseConfig from './config/firebaseConfig';
-
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-import LandingScreen from './components/auth/Landing';
-import RegisterScreen from './components/auth/Register';
-import LoginScreen from './components/auth/Login';
-import MainScreen from './components/Main';
-import AddScreen from './components/Main/Add';
+import firebaseKeys from './connection/firebaseKeys';
 
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import rootReducer from './redux/reducers';
 import thunk from 'redux-thunk';
 
+import AddScreen from './screens/main/Add';
+
 const store = createStore(rootReducer, applyMiddleware(thunk))
 
+firebaseKeys;
+
 if (firebase.apps.length === 0) {
-  firebase.initializeApp(firebaseConfig);
-}
+  firebase.initializeApp(firebaseKeys);
+};
+
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+
+import LandingScreen from './screens/auth/Landing';
+import LoginScreen from './screens/auth/Login';
+import RegisterScreen from './screens/auth/Register';
+import MainScreen from './screens/Main';
+
+LogBox.ignoreAllLogs();
 
 const Stack = createStackNavigator();
-
 export class App extends Component {
   constructor(props) {
     super(props);
@@ -39,68 +44,61 @@ export class App extends Component {
         this.setState({
           loggedIn: false,
           loaded: true,
-        })
+        });
       } else {
         this.setState({
           loggedIn: true,
           loaded: true,
-        })
+        });
       }
-    })
+    });
   };
-
   render() {
-    const { loggedIn, loaded } =this.state;
+    const { loggedIn, loaded } = this.state;
     if (!loaded) {
       return(
-        <View style={styles.container}>
+        <View style={styles.loadingStyle}>
           <Text>Loading...</Text>
         </View>
-      )
+      );
     }
 
     if (!loggedIn) {
       return (
         <NavigationContainer>
-          <Stack.Navigator initialRouteName="Landing">
-            <Stack.Screen
-              name="Landing"
-              component={LandingScreen}
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name="Register"
-              component={RegisterScreen}
-            />
-            <Stack.Screen
-              name="Login"
-              component={LoginScreen}
-            />
+          <Stack.Navigator initialRouteName='Landing'>
+            <Stack.Screen name='Landing' component={LandingScreen} options={{
+              headerShown: false
+            }} />
+            <Stack.Screen name='Register' component={RegisterScreen} />
+            <Stack.Screen name='Login' component={LoginScreen} />
           </Stack.Navigator>
         </NavigationContainer>
       );
-    }
+    };
 
-    return(
+    return (
       <Provider store={store}>
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="Main">
-            <Stack.Screen
-              name="Main" component={MainScreen} options={{ headerShown: false }} />
-            <Stack.Screen name="Add" component={AddScreen} />
-          </Stack.Navigator>
-        </NavigationContainer>
+        <Stack.Navigator initialRouteName='Main'>
+          <Stack.Screen name='Main' component={MainScreen} options={{
+            headerShown: false
+          }} />
+          <Stack.Screen name='Add' component={AddScreen} />
+        </Stack.Navigator>
+      </NavigationContainer>
       </Provider>
-    )
-    };
-}
+    );
+  };
+};
 
 const styles = StyleSheet.create({
-  container: {
+  loadingStyle: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-  },
+    backgroundColor: '#97a356'
+  }
 });
 
 export default App;
