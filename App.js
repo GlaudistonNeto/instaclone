@@ -26,6 +26,8 @@ import LandingScreen from './screens/auth/Landing';
 import LoginScreen from './screens/auth/Login';
 import RegisterScreen from './screens/auth/Register';
 import MainScreen from './screens/Main';
+import AddScreen from './screens/main/Add';
+import SaveScreen from './screens/main/Save';
 
 const Stack = createStackNavigator();
 export class App extends Component {
@@ -84,6 +86,12 @@ export class App extends Component {
               component={MainScreen}
               options={{ headerShown: false }}
             />
+            <Stack.Screen
+              name='Add' component={AddScreen}
+            />
+            <Stack.Screen
+              name='Save' component={SaveScreen}
+            />
           </Stack.Navigator>
         </NavigationContainer>
       </Provider>
@@ -96,7 +104,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#97a356'
+    backgroundColor: '#c5b92c'
   }
 });
 
