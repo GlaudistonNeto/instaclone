@@ -9,7 +9,7 @@ import { createStore, applyMiddleware } from 'redux';
 import rootReducer from './redux/reducers';
 import thunk from 'redux-thunk';
 
-import AddScreen from './screens/main/Add';
+LogBox.ignoreAllLogs();
 
 const store = createStore(rootReducer, applyMiddleware(thunk))
 
@@ -26,8 +26,6 @@ import LandingScreen from './screens/auth/Landing';
 import LoginScreen from './screens/auth/Login';
 import RegisterScreen from './screens/auth/Register';
 import MainScreen from './screens/Main';
-
-LogBox.ignoreAllLogs();
 
 const Stack = createStackNavigator();
 export class App extends Component {
@@ -66,12 +64,12 @@ export class App extends Component {
     if (!loggedIn) {
       return (
         <NavigationContainer>
-          <Stack.Navigator initialRouteName='Landing'>
-            <Stack.Screen name='Landing' component={LandingScreen} options={{
+          <Stack.Navigator initialRouteName="Landing">
+            <Stack.Screen name="Landing" component={LandingScreen} options={{
               headerShown: false
             }} />
-            <Stack.Screen name='Register' component={RegisterScreen} />
-            <Stack.Screen name='Login' component={LoginScreen} />
+            <Stack.Screen name="Register" component={RegisterScreen} />
+            <Stack.Screen name="Login" component={LoginScreen} />
           </Stack.Navigator>
         </NavigationContainer>
       );
@@ -79,14 +77,7 @@ export class App extends Component {
 
     return (
       <Provider store={store}>
-      <NavigationContainer>
-        <Stack.Navigator initialRouteName='Main'>
-          <Stack.Screen name='Main' component={MainScreen} options={{
-            headerShown: false
-          }} />
-          <Stack.Screen name='Add' component={AddScreen} />
-        </Stack.Navigator>
-      </NavigationContainer>
+        <MainScreen />
       </Provider>
     );
   };

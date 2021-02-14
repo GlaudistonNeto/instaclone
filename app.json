@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "instaClone",
-    "slug": "instaclone",
+    "name": "testApp",
+    "slug": "testApp",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",

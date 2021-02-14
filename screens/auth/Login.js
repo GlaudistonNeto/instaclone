@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { View, Button, TextInput } from 'react-native';
 
 import firebase from 'firebase';
+import "firebase/firestore";
 
 export class Login extends Component {
     constructor(props) {
@@ -30,18 +31,18 @@ export class Login extends Component {
         return (
             <View>
                 <TextInput
-                    placeholder='email'
+                    placeholder="email"
                     onChangeText={(email) => this.setState({ email })}
                 />
                 <TextInput
-                    placeholder='password'
+                    placeholder="password"
                     secureTextEntry={true}
                     onChangeText={(password) => this.setState({ password })}
                 />
 
                 <Button
                     onPress={() => this.onSignUp()}
-                    title='Sign In'
+                    title="Sign In"
                 />
             </View>
         );

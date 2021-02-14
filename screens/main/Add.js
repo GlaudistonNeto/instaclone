@@ -61,7 +61,7 @@ export default function Add({ navigation }) {
       </View>
 
       <Button
-        title='Flip Image'
+        title="Flip Image"
         onPress={() => {
           setType(
             type === Camera.Constants.Type.back
@@ -70,9 +70,9 @@ export default function Add({ navigation }) {
           );
         }}>
       </Button>
-      <Button title='Take Picture' onPress={() => takePicture()} />
-      <Button title='Pick Image From Medias' onPress={() => pickImage()} />
-      <Button title='Save' onPress={() => navigation.navigate('Save', { image })} />
+      <Button title="Take Picture" onPress={() => takePicture()} />
+      <Button title="Pick Image From Medias" onPress={() => pickImage()} />
+      <Button title="Save" onPress={() => navigation.navigate('Save', { image })} />
       {image && <Image source={{ uri: image }} style={{ flex: 1 }} />}
     </View>
   );
