@@ -66,12 +66,12 @@ export class App extends Component {
     if (!loggedIn) {
       return (
         <NavigationContainer>
-          <Stack.Navigator initialRouteName="Landing">
-            <Stack.Screen name="Landing" component={LandingScreen} options={{
+          <Stack.Navigator initialRouteName='Landing'>
+            <Stack.Screen name='Landing' component={LandingScreen} options={{
               headerShown: false
             }} />
-            <Stack.Screen name="Register" component={RegisterScreen} />
-            <Stack.Screen name="Login" component={LoginScreen} />
+            <Stack.Screen name='Register' component={RegisterScreen} />
+            <Stack.Screen name='Login' component={LoginScreen} />
           </Stack.Navigator>
         </NavigationContainer>
       );

@@ -19,7 +19,7 @@ function Profile(props) {
         }
         else {
             firebase.firestore()
-                .collection("users")
+                .collection('users')
                 .doc(props.route.params.uid)
                 .get()
                 .then((snapshot) => {
@@ -31,10 +31,10 @@ function Profile(props) {
                     }
                 })
             firebase.firestore()
-                .collection("posts")
+                .collection('posts')
                 .doc(props.route.params.uid)
-                .collection("userPosts")
-                .orderBy("creation", "asc")
+                .collection('userPosts')
+                .orderBy('creation', 'asc')
                 .get()
                 .then((snapshot) => {
                     let posts = snapshot.docs.map(doc => {
@@ -56,17 +56,17 @@ function Profile(props) {
 
     const onFollow = () => {
         firebase.firestore()
-            .collection("following")
+            .collection('following')
             .doc(firebase.auth().currentUser.uid)
-            .collection("userFollowing")
+            .collection('userFollowing')
             .doc(props.route.params.uid)
             .set({})
     }
     const onUnfollow = () => {
         firebase.firestore()
-            .collection("following")
+            .collection('following')
             .doc(firebase.auth().currentUser.uid)
-            .collection("userFollowing")
+            .collection('userFollowing')
             .doc(props.route.params.uid)
             .delete()
     }
@@ -88,20 +88,20 @@ function Profile(props) {
                     <View>
                         {following ? (
                             <Button
-                                title="Following"
+                                title='Following'
                                 onPress={() => onUnfollow()}
                             />
                         ) :
                             (
                                 <Button
-                                    title="Follow"
+                                    title='Follow'
                                     onPress={() => onFollow()}
                                 />
                             )}
                     </View>
                 ) :
                     <Button
-                        title="Logout"
+                        title='Logout'
                         onPress={() => onLogout()}
                     />}
             </View>
