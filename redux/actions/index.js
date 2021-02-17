@@ -1,18 +1,19 @@
 import {
-  USER_STATE_CHANGE,
-  USER_POSTS_STATE_CHANGE,
-  USER_FOLLOWING_STATE_CHANGE,
-  USERS_DATA_STATE_CHANGE,
-  USERS_POSTS_STATE_CHANGE,
+    USER_STATE_CHANGE,
+    USER_POSTS_STATE_CHANGE,
+    USER_FOLLOWING_STATE_CHANGE,
+    USERS_DATA_STATE_CHANGE,USERS_POSTS_STATE_CHANGE,
+    CLEAR_DATA
 } from '../constants/index'
-
 import firebase from 'firebase'
 require('firebase/firestore')
 
+
 export function clearData() {
-
-};
-
+    return ((dispatch) => {
+        dispatch({type: CLEAR_DATA})
+    })
+}
 export function fetchUser() {
     return ((dispatch) => {
         firebase.firestore()
@@ -28,7 +29,7 @@ export function fetchUser() {
                 }
             })
     })
-};
+}
 
 export function fetchUserPosts() {
     return ((dispatch) => {
@@ -47,7 +48,7 @@ export function fetchUserPosts() {
                 dispatch({ type: USER_POSTS_STATE_CHANGE, posts })
             })
     })
-};
+}
 
 export function fetchUserFollowing() {
     return ((dispatch) => {
@@ -66,7 +67,7 @@ export function fetchUserFollowing() {
                 }
             })
     })
-};
+}
 
 export function fetchUsersData(uid, getPosts) {
     return ((dispatch, getState) => {
@@ -87,12 +88,12 @@ export function fetchUsersData(uid, getPosts) {
                         console.log('does not exist')
                     }
                 })
-                if(getPosts){
+                if (getPosts) {
                     dispatch(fetchUsersFollowingPosts(uid));
                 }
         }
     })
-};
+}
 
 export function fetchUsersFollowingPosts(uid) {
     return ((dispatch, getState) => {
@@ -100,7 +101,7 @@ export function fetchUsersFollowingPosts(uid) {
             .collection('posts')
             .doc(uid)
             .collection('userPosts')
-            .orderBy('creation', 'asc')
+            .orderBy('creation', 'desc')
             .get()
             .then((snapshot) => {
                 const uid = snapshot.query.EP.path.segments[1];
@@ -120,7 +121,7 @@ export function fetchUsersFollowingPosts(uid) {
 
             })
     })
-};
+}
 
 export function fetchUsersFollowingLikes(uid, postId) {
     return ((dispatch, getState) => {
@@ -142,4 +143,4 @@ export function fetchUsersFollowingLikes(uid, postId) {
                 dispatch({ type: postId, currentUserLike })
             })
     })
-};
+}

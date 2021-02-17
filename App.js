@@ -28,6 +28,7 @@ import RegisterScreen from './screens/auth/Register';
 import MainScreen from './screens/Main';
 import AddScreen from './screens/main/Add';
 import SaveScreen from './screens/main/Save';
+import CommentScreen from './screens/main/Comment';
 
 const Stack = createStackNavigator();
 export class App extends Component {
@@ -88,6 +89,9 @@ export class App extends Component {
             />
             <Stack.Screen
               name='Save' component={SaveScreen} navigation={this.props.navigation}
+            />
+            <Stack.Screen
+              name='Comment' component={CommentScreen} navigation={this.props.navigation}
             />
           </Stack.Navigator>
         </NavigationContainer>
