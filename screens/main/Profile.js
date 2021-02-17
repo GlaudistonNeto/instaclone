@@ -8,7 +8,7 @@ import { connect } from 'react-redux'
 function Profile(props) {
     const [userPosts, setUserPosts] = useState([]);
     const [user, setUser] = useState(null);
-    const [following, setFollowing] = useState(false);
+    const [following, setFollowing] = useState(false)
 
     useEffect(() => {
         const { currentUser, posts } = props;
@@ -155,5 +155,3 @@ const mapStateToProps = (store) => ({
     following: store.userState.following
 })
 export default connect(mapStateToProps, null)(Profile);
-
-// useless following functionalities

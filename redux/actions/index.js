@@ -2,10 +2,12 @@ import {
     USER_STATE_CHANGE,
     USER_POSTS_STATE_CHANGE,
     USER_FOLLOWING_STATE_CHANGE,
-    USERS_DATA_STATE_CHANGE,USERS_POSTS_STATE_CHANGE,
+    USERS_DATA_STATE_CHANGE,
+    USERS_POSTS_STATE_CHANGE,
+    USERS_LIKES_STATE_CHANGE,
     CLEAR_DATA
-} from '../constants/index'
-import firebase from 'firebase'
+} from '../constants/index';
+import firebase from 'firebase';
 require('firebase/firestore')
 
 
@@ -37,7 +39,7 @@ export function fetchUserPosts() {
             .collection('posts')
             .doc(firebase.auth().currentUser.uid)
             .collection('userPosts')
-            .orderBy('creation', 'asc')
+            .orderBy('creation', 'desc')
             .get()
             .then((snapshot) => {
                 let posts = snapshot.docs.map(doc => {
@@ -88,12 +90,12 @@ export function fetchUsersData(uid, getPosts) {
                         console.log('does not exist')
                     }
                 })
-                if (getPosts) {
+                if(getPosts){
                     dispatch(fetchUsersFollowingPosts(uid));
                 }
-        }
-    })
-}
+        };
+    });
+};
 
 export function fetchUsersFollowingPosts(uid) {
     return ((dispatch, getState) => {
@@ -119,9 +121,9 @@ export function fetchUsersFollowingPosts(uid) {
                 }
                 dispatch({ type: USERS_POSTS_STATE_CHANGE, posts, uid })
 
-            })
-    })
-}
+            });
+    });
+};
 
 export function fetchUsersFollowingLikes(uid, postId) {
     return ((dispatch, getState) => {
@@ -140,7 +142,7 @@ export function fetchUsersFollowingLikes(uid, postId) {
                     currentUserLike = true;
                 }
 
-                dispatch({ type: postId, currentUserLike })
-            })
-    })
-}
+                dispatch({ type: USERS_LIKES_STATE_CHANGE, postId, currentUserLike })
+            });
+    });
+};
